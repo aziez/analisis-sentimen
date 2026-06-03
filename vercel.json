@@ -1,0 +1,16 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "installCommand": "npm install",
+  "functions": {
+    "app/api/sentiment/route.ts": {
+      "memory": 1024,
+      "maxDuration": 60
+    },
+    "app/api/stats/route.ts": {
+      "memory": 512,
+      "maxDuration": 10
+    }
+  }
+}
