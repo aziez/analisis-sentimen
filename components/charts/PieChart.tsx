@@ -12,9 +12,11 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface Props {
   distribution: { Positif: number; Netral: number; Negatif: number };
+  theme?: "dark" | "light";
 }
 
-export default function PieChart({ distribution }: Props) {
+export default function PieChart({ distribution, theme = "dark" }: Props) {
+  const isDark = theme === "dark";
   const total = distribution.Positif + distribution.Netral + distribution.Negatif;
   const pct = (n: number) => (total > 0 ? ((n / total) * 100).toFixed(1) : "0");
 
@@ -52,7 +54,7 @@ export default function PieChart({ distribution }: Props) {
       legend: {
         position: "bottom" as const,
         labels: {
-          color: "#94a3b8",
+          color: isDark ? "#94a3b8" : "#475569",
           font: { size: 12, weight: 600 },
           padding: 18,
           usePointStyle: true,
@@ -74,10 +76,10 @@ export default function PieChart({ distribution }: Props) {
         },
       },
       tooltip: {
-        backgroundColor: "rgba(15, 23, 42, 0.95)",
-        titleColor: "#e2e8f0",
-        bodyColor: "#94a3b8",
-        borderColor: "rgba(255,255,255,0.12)",
+        backgroundColor: isDark ? "rgba(15, 23, 42, 0.97)" : "rgba(255,255,255,0.98)",
+        titleColor: isDark ? "#e2e8f0" : "#0f172a",
+        bodyColor: isDark ? "#94a3b8" : "#475569",
+        borderColor: isDark ? "rgba(255,255,255,0.12)" : "#e2e8f0",
         borderWidth: 1,
         padding: 12,
         callbacks: {
@@ -100,7 +102,7 @@ export default function PieChart({ distribution }: Props) {
     elements: {
       arc: {
         borderWidth: 2,
-        borderColor: "#0f172a",
+        borderColor: isDark ? "#0f172a" : "#f8fafc",
         hoverBorderColor: "#ffffff",
       },
     },

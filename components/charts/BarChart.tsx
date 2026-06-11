@@ -25,9 +25,17 @@ interface WordEntry {
 
 interface Props {
   topWords: WordEntry[];
+  theme?: "dark" | "light";
 }
 
-export default function BarChart({ topWords }: Props) {
+export default function BarChart({ topWords, theme = "dark" }: Props) {
+  const tickColor   = theme === "dark" ? "#94a3b8" : "#475569";
+  const gridColor   = theme === "dark" ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.05)";
+  const borderClr   = theme === "dark" ? "rgba(255,255,255,0.08)" : "#e2e8f0";
+  const ttBg        = theme === "dark" ? "rgba(15,23,42,0.97)" : "rgba(255,255,255,0.98)";
+  const ttTitle     = theme === "dark" ? "#e2e8f0" : "#0f172a";
+  const ttBody      = theme === "dark" ? "#94a3b8" : "#475569";
+  const ttBorder    = theme === "dark" ? "rgba(100,116,139,0.4)" : "#e2e8f0";
   const items = topWords.slice(0, 20);
   const maxCount = Math.max(...items.map((w) => w.count), 1);
 
@@ -72,12 +80,12 @@ export default function BarChart({ topWords }: Props) {
     plugins: {
       legend: { display: false },
       tooltip: {
-        backgroundColor: "rgba(15, 23, 42, 0.95)",
-        titleColor: "#e2e8f0",
+        backgroundColor: ttBg,
+        titleColor: ttTitle,
         titleFont: { size: 13, weight: "bold" as const },
-        bodyColor: "#94a3b8",
+        bodyColor: ttBody,
         bodyFont: { size: 12 },
-        borderColor: "rgba(100,116,139,0.4)",
+        borderColor: ttBorder,
         borderWidth: 1,
         padding: 12,
         cornerRadius: 10,
@@ -98,32 +106,32 @@ export default function BarChart({ topWords }: Props) {
       x: {
         beginAtZero: true,
         ticks: {
-          color: "#64748b",
+          color: tickColor,
           font: { size: 10 },
           callback: (v: any) => v.toLocaleString("id-ID"),
         },
         grid: {
-          color: "rgba(255,255,255,0.04)",
+          color: gridColor,
           lineWidth: 1,
         },
-        border: { color: "rgba(255,255,255,0.08)" },
+        border: { color: borderClr },
         title: {
           display: true,
           text: "Jumlah Kemunculan (kali)",
-          color: "#64748b",
+          color: tickColor,
           font: { size: 11 },
           padding: { top: 8 },
         },
       },
       y: {
         ticks: {
-          color: "#94a3b8",
+          color: tickColor,
           font: { size: 11, weight: "bold" as const },
         },
         grid: {
           display: false,
         },
-        border: { color: "rgba(255,255,255,0.08)" },
+        border: { color: borderClr },
       },
     },
     animation: {

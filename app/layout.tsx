@@ -9,25 +9,26 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Sentiment Analysis Dashboard | Facebook Comments",
+  title: "SentiScope — Analisis Sentimen Teks Indonesia",
   description:
-    "Interactive dashboard untuk analisis sentimen komentar Facebook menggunakan VADER, TextBlob, dan Hugging Face Transformers.",
-  keywords: ["sentiment analysis", "facebook", "nlp", "data mining", "dashboard"],
+    "Dashboard analisis sentimen teks Indonesia menggunakan IndoBERTweet, mBERT, dan InSet Lexicon. Upload CSV dan analisis komentar, ulasan, atau teks apapun.",
+  keywords: ["sentiment analysis", "indonesia", "nlp", "data mining", "indobertweet", "lexicon"],
   authors: [{ name: "UNPAM Data Mining" }],
-  openGraph: {
-    title: "Sentiment Analysis Dashboard",
-    description: "Analisis sentimen komentar Facebook dengan 3 model AI",
-    type: "website",
-  },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="id" className={inter.variable}>
+    <html lang="id" className={inter.variable} data-theme="dark" suppressHydrationWarning>
+      <head>
+        {/* Prevent flash of wrong theme on load */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('sentiscope-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body className="font-sans antialiased">{children}</body>
     </html>
   );
